@@ -123,12 +123,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreatePackages", "Nuspecs\C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsTest", "WindowsFormsTest\WindowsFormsTest.csproj", "{5695C53A-9E60-4EA9-A740-61C6F73CB130}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp1", "TestApp1\TestApp1.csproj", "{2D1B9791-4D15-4FEB-9705-2E7E20859668}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Lib\Common.Split\Shared\Blob.Shared\Microsoft.Azure.Storage.Common.Blob.projitems*{04928920-d800-41d5-808d-4ed254c9e4c1}*SharedItemsImports = 4
 		Lib\Common.Split\Shared\Blob.Shared\Microsoft.Azure.Storage.Common.Blob.projitems*{0794a15f-79ae-4cbb-b08c-8259f20dfb18}*SharedItemsImports = 13
+		Lib\Common.Split\Shared\Queue.Shared\Microsoft.Azure.Storage.Common.Queue.projitems*{155b87ef-5f70-44af-90bf-cf5859ee7b0e}*SharedItemsImports = 5
+		Lib\Common.Split\Shared\Blob.Shared\Microsoft.Azure.Storage.Common.Blob.projitems*{1f0b7d79-38af-44fc-85b7-69cef5d8c9d4}*SharedItemsImports = 5
+		Lib\Common.Split\Shared\File.Shared\Microsoft.Azure.Storage.Common.File.projitems*{1fcc9c24-2834-4f21-a526-2f0ed09d7747}*SharedItemsImports = 5
 		Lib\Common.Split\Shared\File.Shared\Microsoft.Azure.Storage.Common.File.projitems*{4c3cbc1b-3f11-4324-8412-5b6202b1ba61}*SharedItemsImports = 4
 		Lib\Common.Split\Shared\File.Shared\Microsoft.Azure.Storage.Common.File.projitems*{95dab5dd-4b2a-4f90-ab83-885b4c3b4a44}*SharedItemsImports = 13
+		Lib\Common.Split\Shared\Queue.Shared\Microsoft.Azure.Storage.Common.Queue.projitems*{ae114020-80b5-4b2c-b7cc-60770be7cdb0}*SharedItemsImports = 5
+		Lib\Common.Split\Shared\File.Shared\Microsoft.Azure.Storage.Common.File.projitems*{bebf9e2b-d401-4fab-989d-a21c79e8f797}*SharedItemsImports = 5
+		Lib\Common.Split\Shared\Blob.Shared\Microsoft.Azure.Storage.Common.Blob.projitems*{db502c7f-c4b7-4074-84cf-59bb7dd5bba2}*SharedItemsImports = 5
 		Lib\Common.Split\Shared\Queue.Shared\Microsoft.Azure.Storage.Common.Queue.projitems*{e7f33f50-9ef3-4f61-9287-087e8ac6b37b}*SharedItemsImports = 13
 		Lib\Common.Split\Shared\Queue.Shared\Microsoft.Azure.Storage.Common.Queue.projitems*{ed51f78b-ec11-4052-a9ca-5a909c8ba3b7}*SharedItemsImports = 4
 	EndGlobalSection
@@ -757,6 +765,38 @@ Global
 		{5695C53A-9E60-4EA9-A740-61C6F73CB130}.Release|x64.Build.0 = Release|Any CPU
 		{5695C53A-9E60-4EA9-A740-61C6F73CB130}.Release|x86.ActiveCfg = Release|Any CPU
 		{5695C53A-9E60-4EA9-A740-61C6F73CB130}.Release|x86.Build.0 = Release|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Debug|ARM.Build.0 = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Debug|x64.Build.0 = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Debug|x86.Build.0 = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Official|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Official|Any CPU.Build.0 = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Official|ARM.ActiveCfg = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Official|ARM.Build.0 = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Official|x64.ActiveCfg = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Official|x64.Build.0 = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Official|x86.ActiveCfg = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Official|x86.Build.0 = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Preview|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Preview|Any CPU.Build.0 = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Preview|ARM.ActiveCfg = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Preview|ARM.Build.0 = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Preview|x64.ActiveCfg = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Preview|x64.Build.0 = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Preview|x86.ActiveCfg = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Preview|x86.Build.0 = Debug|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Release|ARM.ActiveCfg = Release|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Release|ARM.Build.0 = Release|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Release|x64.ActiveCfg = Release|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Release|x64.Build.0 = Release|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Release|x86.ActiveCfg = Release|Any CPU
+		{2D1B9791-4D15-4FEB-9705-2E7E20859668}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

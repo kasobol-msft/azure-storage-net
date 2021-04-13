@@ -227,9 +227,14 @@ namespace Microsoft.Azure.Storage.Core.Util
     {
         private volatile TaskCompletionSource<bool> m_tcs = new TaskCompletionSource<bool>();
 
+        public OperationContext OperationContext { get; set; }
+
         public AsyncManualResetEvent(bool initialStateSignaled)
         {
-            Task.Run(() => m_tcs.TrySetResult(initialStateSignaled));
+            Task.Run(() => {
+                Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {OperationContext?.ClientRequestID} AsyncManualResetEvent constructor task...");
+                m_tcs.TrySetResult(initialStateSignaled);
+                });
         }
 
         public Task WaitAsync() { return m_tcs.Task; }

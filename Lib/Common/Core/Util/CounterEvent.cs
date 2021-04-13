@@ -17,13 +17,16 @@
 
 namespace Microsoft.Azure.Storage.Core.Util
 {
+    using System;
     using System.Threading.Tasks;
 
     internal sealed class CounterEventAsync
     {
-        private AsyncManualResetEvent internalEvent = new AsyncManualResetEvent(true);
+        public AsyncManualResetEvent internalEvent = new AsyncManualResetEvent(true);
         private object counterLock = new object();
         private int counter = 0;
+
+        public OperationContext OperationContext { get; set; }
 
         /// <summary>
         /// Increments the counter by one and thus sets the state of the event to non-signaled, causing threads to block.
@@ -33,6 +36,7 @@ namespace Microsoft.Azure.Storage.Core.Util
             lock (this.counterLock)
             {
                 this.counter++;
+                Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {OperationContext?.ClientRequestID} this.internalEvent.Reset()");
                 this.internalEvent.Reset();
             }
         }
@@ -52,6 +56,7 @@ namespace Microsoft.Azure.Storage.Core.Util
             }
             if (setEvent)
             {
+                Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {OperationContext?.ClientRequestID} this.internalEvent.Set()");
                 await this.internalEvent.Set().ConfigureAwait(false);
             }
         }

@@ -168,6 +168,7 @@ namespace Microsoft.Azure.Storage.Blob
         /// <returns>Task</returns>
         public override async Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken token)
         {
+            Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {operationContext.ClientRequestID} WriteAsync");
             CommonUtility.AssertNotNull("buffer", buffer);
             CommonUtility.AssertInBounds("offset", offset, 0, buffer.Length);
             CommonUtility.AssertInBounds("count", count, 0, buffer.Length - offset);
@@ -301,13 +302,17 @@ namespace Microsoft.Azure.Storage.Blob
                 throw new InvalidOperationException(SR.BlobStreamAlreadyCommitted);
             }
 
+            Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {operationContext.ClientRequestID} Flush IgnoreFlush {this.IgnoreFlush}");
             if (!this.IgnoreFlush)
             {  
                 this.ThrowLastExceptionIfExists();
                 await this.DispatchWriteAsync(null, token).ConfigureAwait(false);
+                Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {operationContext.ClientRequestID} Flush waiting for noPendingWritesEvent");
                 await this.noPendingWritesEvent.WaitAsync().WithCancellation(token).ConfigureAwait(false);
+                Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {operationContext.ClientRequestID} Flush after waiting for noPendingWritesEvent");
                 this.ThrowLastExceptionIfExists();
             }
+            Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {operationContext.ClientRequestID} Flush exit");
         }
 
         /// <summary>
@@ -324,6 +329,7 @@ namespace Microsoft.Azure.Storage.Blob
                 {
                     if (!this.committed)
                     {
+                        Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {operationContext.ClientRequestID} Disposing BlobWriteStream");
                         this.CommitAsync().ConfigureAwait(false).GetAwaiter().GetResult();
                     }
                 }
@@ -393,6 +399,7 @@ namespace Microsoft.Azure.Storage.Blob
                         }
                     }
 
+                    Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {operationContext.ClientRequestID} Commiting block list {string.Join(" ", this.blockList)}");
                     await this.blockBlob.PutBlockListAsync(
                         this.blockList,
                         this.accessCondition,
@@ -474,6 +481,7 @@ namespace Microsoft.Azure.Storage.Blob
             {
                 string blockId = this.GetCurrentBlockId();
                 this.blockList.Add(blockId);
+                Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {operationContext.ClientRequestID} Added Block Id {blockId} Block Ids {string.Join(" ", this.blockList)}");
                 await this.WriteBlockAsync(continuetcs, bufferToUpload, blockId, bufferChecksum, token).ConfigureAwait(false);
             }
             else if (this.pageBlob != null)
@@ -507,7 +515,9 @@ namespace Microsoft.Azure.Storage.Blob
 
         private Task WriteBlockAsync(TaskCompletionSource<bool> continuetcs, Stream blockData, string blockId, Checksum blockChecksum, CancellationToken token)
         {
+            Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {operationContext.ClientRequestID} Incrementing noPendingWritesEvent");
             this.noPendingWritesEvent.Increment();
+            Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {operationContext.ClientRequestID} Incremented noPendingWritesEvent");
 
             return this.parallelOperationSemaphoreAsync.WaitAsync(async (bool runningInline, CancellationToken internalToken) =>
             {
@@ -527,7 +537,9 @@ namespace Microsoft.Azure.Storage.Blob
                 }
                 finally
                 {
+                    Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {operationContext.ClientRequestID} Decrementing noPendingWritesEvent");
                     await this.noPendingWritesEvent.DecrementAsync().ConfigureAwait(false);
+                    Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {operationContext.ClientRequestID} Decremented noPendingWritesEvent");
                     await this.parallelOperationSemaphoreAsync.ReleaseAsync(internalToken).ConfigureAwait(false);
                 }
             }, token);

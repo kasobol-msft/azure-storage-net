@@ -72,7 +72,8 @@ namespace Microsoft.Azure.Storage.Blob
             this.currentOffset = 0;
             this.options = options;
             this.operationContext = operationContext;
-            this.noPendingWritesEvent = new CounterEventAsync();
+            this.noPendingWritesEvent = new CounterEventAsync() { OperationContext = operationContext };
+            this.noPendingWritesEvent.internalEvent.OperationContext = operationContext;
             this.blobChecksum = new ChecksumWrapper(this.options.ChecksumOptions.StoreContentMD5.Value, this.options.ChecksumOptions.StoreContentCRC64.Value);
             this.blockChecksum = new ChecksumWrapper(this.options.ChecksumOptions.UseTransactionalMD5.Value, this.options.ChecksumOptions.UseTransactionalCRC64.Value);
 #if WINDOWS_DESKTOP
