@@ -18,7 +18,7 @@ namespace ConsoleApp1
 {
     class Program
     {
-        private const string StorageConnectionString = "REDACTED";
+        private const string StorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=kasoboltest;AccountKey=gYkU83eFsuvDgFHOB/aZBfrdAdRO2UqdaAPdSWnvpHqRLKatNPdXS8SZ8uF8QeoEICAfZQOAscT2u+4t8LiMxw==;EndpointSuffix=core.windows.net";
 
 
         static void Main(string[] args)
@@ -36,12 +36,12 @@ namespace ConsoleApp1
 
         private static void OperationContext_GlobalResponseReceived(object sender, RequestEventArgs e)
         {
-            Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {e.Request.Headers.GetValues("x-ms-client-request-id").FirstOrDefault()} Received {e.Response.StatusCode}");
+            Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {e.Request.Headers.GetValues("x-ms-client-request-id").FirstOrDefault()} Received_{e.Response.StatusCode}");
         }
 
         private static void OperationContext_GlobalSendingRequest(object sender, RequestEventArgs e)
         {
-            Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {e.Request.Headers.GetValues("x-ms-client-request-id").FirstOrDefault()} Sending {e.Request.RequestUri}");
+            Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {e.Request.Headers.GetValues("x-ms-client-request-id").FirstOrDefault()} Sending_{e.Request.RequestUri}");
         }
 
         private static async Task CreateFile()
@@ -116,7 +116,7 @@ namespace ConsoleApp1
                         using (CloudBlobStream targetStream = blob.OpenWrite(null, blobRequestOptions, operationContext))
                         {
                             fileStream.CopyTo(targetStream);
-                            Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {operationContext.ClientRequestID} I'm after CopyTo but inside Using");
+                            Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {operationContext.ClientRequestID} I'm_after_CopyTo_but_inside_Using");
                         }
                         var _ = fileStream.Length;
                     }

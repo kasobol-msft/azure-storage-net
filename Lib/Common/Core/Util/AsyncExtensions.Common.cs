@@ -231,10 +231,12 @@ namespace Microsoft.Azure.Storage.Core.Util
 
         public AsyncManualResetEvent(bool initialStateSignaled)
         {
-            Task.Run(() => {
-                Console.WriteLine($"{DateTime.UtcNow.ToString("O")} {OperationContext?.ClientRequestID} AsyncManualResetEvent constructor task...");
-                m_tcs.TrySetResult(initialStateSignaled);
-                });
+            if (initialStateSignaled)
+            {
+                // this is safe to do, there's nothing awaitng the task nor any continuation that could result in deadlock.
+                // If this throws it's better to bubble up exception rather than left TCS not completed as this could deadlock case where no writes were made just a commit.
+                m_tcs.SetResult(true);
+            }
         }
 
         public Task WaitAsync() { return m_tcs.Task; }
